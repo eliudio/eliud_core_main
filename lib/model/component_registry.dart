@@ -13,7 +13,6 @@
 
 */
 
-import '../model/internal_component.dart';
 import 'abstract_repository_singleton.dart';
 import 'package:eliud_core_main/apis/apis.dart';
 
@@ -38,9 +37,6 @@ class ComponentRegistry {
       "pages",
     ]);
 
-    Apis.apis().getRegistryApi().register(
-        componentName: "eliud_core_main_internalWidgets",
-        componentConstructor: ListComponentFactory());
     Apis.apis()
         .getRegistryApi()
         .addComponentSpec('eliud_core_main', 'core', []);

@@ -14,7 +14,6 @@
 */
 
 import 'package:eliud_core_main/apis/apis.dart';
-import 'package:eliud_core_main/tools/route_builders/route_builders.dart';
 import 'package:eliud_core_main/apis/style/style_registry.dart';
 import 'package:eliud_core_helpers/tools/has_fab.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +21,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:eliud_core_main/model/background_model.dart';
 import 'package:eliud_core_helpers/tools/delete_snackbar.dart';
 import 'package:eliud_core_main/tools/etc/etc.dart';
-import 'package:eliud_core_helpers/etc/enums.dart';
 
 import 'package:eliud_core_main/model/member_subscription_list_event.dart';
 import 'package:eliud_core_main/model/member_subscription_list_state.dart';
@@ -30,8 +28,6 @@ import 'package:eliud_core_main/model/member_subscription_list_bloc.dart';
 import 'package:eliud_core_main/model/member_subscription_model.dart';
 
 import 'package:eliud_core_main/model/app_model.dart';
-
-import 'member_subscription_form.dart';
 
 typedef MemberSubscriptionWidgetProvider = Function(
     MemberSubscriptionModel? value);
@@ -61,43 +57,35 @@ class MemberSubscriptionListWidget extends StatefulWidget with HasFab {
 
   @override
   Widget? fab(BuildContext context) {
+    return null;
+/*
     if ((readOnly != null) && readOnly!) return null;
     var state = MemberSubscriptionListWidgetState();
-    return state.fab(
-      context,
-    );
+    return state.fab(context,);
+*/
   }
 }
 
 class MemberSubscriptionListWidgetState
     extends State<MemberSubscriptionListWidget> {
+/*
   Widget? fab(BuildContext aContext) {
-    return !Apis.apis()
-            .getCoreApi()
-            .memberIsOwner(context, widget.app.documentID)
-        ? null
-        : StyleRegistry.registry()
-            .styleWithApp(widget.app)
-            .adminListStyle()
-            .floatingActionButton(
-            widget.app,
-            context,
-            'PageFloatBtnTag',
-            Icon(Icons.add),
-            onPressed: () {
-              Navigator.of(context).push(
-                pageRouteBuilder(widget.app,
-                    page: BlocProvider.value(
-                        value: BlocProvider.of<MemberSubscriptionListBloc>(
-                            context),
-                        child: MemberSubscriptionForm(
-                            app: widget.app,
-                            value: null,
-                            formAction: FormAction.addAction))),
-              );
-            },
-          );
+    return null;
+    return  !Apis.apis().getCoreApi().memberIsOwner(context, widget.app.documentID) ? null : 
+      StyleRegistry.registry().styleWithApp(widget.app).adminListStyle().floatingActionButton(widget.app, context, 'PageFloatBtnTag', Icon(Icons.add),
+      onPressed: () {
+        Navigator.of(context).push(
+          pageRouteBuilder(widget.app, page: BlocProvider.value(
+              value: BlocProvider.of<MemberSubscriptionListBloc>(context),
+              child: MemberSubscriptionForm(app:widget.app,
+                  value: null,
+                  formAction: FormAction.addAction)
+          )),
+        );
+      },
+    );
   }
+*/
 
   @override
   Widget build(BuildContext context) {
@@ -118,26 +106,22 @@ class MemberSubscriptionListWidgetState
               context,
               values,
             ));
-            children.add(StyleRegistry.registry()
-                .styleWithApp(widget.app)
-                .adminFormStyle()
-                .button(
-              widget.app,
-              context,
-              label: 'Add',
-              onPressed: () {
-                Navigator.of(context).push(
-                  pageRouteBuilder(widget.app,
-                      page: BlocProvider.value(
-                          value: BlocProvider.of<MemberSubscriptionListBloc>(
-                              context),
-                          child: MemberSubscriptionForm(
-                              app: widget.app,
-                              value: null,
-                              formAction: FormAction.addAction))),
-                );
-              },
-            ));
+/*
+              children.add(
+                  StyleRegistry.registry().styleWithApp(widget.app).adminFormStyle().button(widget.app,
+                      context, label: 'Add',
+                      onPressed: () {
+                        Navigator.of(context).push(
+                                  pageRouteBuilder(widget.app, page: BlocProvider.value(
+                                      value: BlocProvider.of<MemberSubscriptionListBloc>(context),
+                                      child: MemberSubscriptionForm(app:widget.app,
+                                          value: null,
+                                          formAction: FormAction.addAction)
+                                  )),
+                                );
+                      },
+                    ));
+*/
             return ListView(
                 padding: const EdgeInsets.all(8),
                 physics: ScrollPhysics(),
@@ -201,36 +185,9 @@ class MemberSubscriptionListWidgetState
                             .add(AddMemberSubscriptionList(value: value)),
                   ));
                 },
-                onTap: () async {
-                  final removedItem = await Navigator.of(context).push(
-                      pageRouteBuilder(widget.app,
-                          page: BlocProvider.value(
-                              value:
-                                  BlocProvider.of<MemberSubscriptionListBloc>(
-                                      context),
-                              child: getForm(value, FormAction.updateAction))));
-                  if (removedItem != null) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      DeleteSnackBar(
-                        message: "MemberSubscription $value.documentID",
-                        onUndo: () =>
-                            BlocProvider.of<MemberSubscriptionListBloc>(context)
-                                .add(AddMemberSubscriptionList(value: value)),
-                      ),
-                    );
-                  }
-                },
+                onTap: () async {},
               );
             }));
-  }
-
-  Widget? getForm(value, action) {
-    if (widget.form == null) {
-      return MemberSubscriptionForm(
-          app: widget.app, value: value, formAction: action);
-    } else {
-      return null;
-    }
   }
 }
 

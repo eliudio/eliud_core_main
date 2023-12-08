@@ -13,7 +13,7 @@
     "generateModel": true,
     "generateEntity": true,
     "generateForm": true,
-    "generateList": true,
+    "generateList": false,
     "generateDropDownButton": true,
     "generateInternalComponent": true,
     "generateEmbeddedComponent": false

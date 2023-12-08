@@ -28,4 +28,6 @@ class EliudColors {
   static RgbModel blue = RgbModel(r: 0, g: 0, b: 255, opacity: 1);
   static RgbModel orange1 = RgbModel(r: 255, g: 167, b: 62, opacity: 1);
   static RgbModel orange2 = RgbModel(r: 255, g: 167, b: 0, opacity: 1);
+
+  static RgbModel dialogGray = RgbModel(r: 238, g: 238, b: 238, opacity: 1);
 }

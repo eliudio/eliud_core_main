@@ -23,37 +23,30 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../model/body_component_list_bloc.dart';
-import '../model/body_component_list.dart';
-import '../model/body_component_list_event.dart';
 import '../model/body_component_model.dart';
 import '../model/body_component_entity.dart';
 import '../model/body_component_repository.dart';
 
-import '../model/decoration_color_list_bloc.dart';
-import '../model/decoration_color_list.dart';
-import '../model/decoration_color_list_event.dart';
 import '../model/decoration_color_model.dart';
 import '../model/decoration_color_entity.dart';
 import '../model/decoration_color_repository.dart';
 
-import '../model/member_medium_list_bloc.dart';
 import '../model/member_medium_list.dart';
+import '../model/member_medium_list_bloc.dart';
 import '../model/member_medium_list_event.dart';
+
 import '../model/member_medium_model.dart';
 import '../model/member_medium_entity.dart';
 import '../model/member_medium_repository.dart';
 
-import '../model/member_subscription_list_bloc.dart';
 import '../model/member_subscription_list.dart';
+import '../model/member_subscription_list_bloc.dart';
 import '../model/member_subscription_list_event.dart';
+
 import '../model/member_subscription_model.dart';
 import '../model/member_subscription_entity.dart';
 import '../model/member_subscription_repository.dart';
 
-import '../model/menu_item_list_bloc.dart';
-import '../model/menu_item_list.dart';
-import '../model/menu_item_list_event.dart';
 import '../model/menu_item_model.dart';
 import '../model/menu_item_entity.dart';
 import '../model/menu_item_repository.dart';
@@ -66,63 +59,13 @@ typedef MemberSubscriptionListChanged = Function(
     List<MemberSubscriptionModel> values);
 typedef MenuItemListChanged = Function(List<MenuItemModel> values);
 
-bodyComponentsList(app, context, value, trigger) =>
-    EmbeddedComponentFactory.bodyComponentsList(app, context, value, trigger);
-decorationColorsList(app, context, value, trigger) =>
-    EmbeddedComponentFactory.decorationColorsList(app, context, value, trigger);
 memberMediumsList(app, context, value, trigger) =>
     EmbeddedComponentFactory.memberMediumsList(app, context, value, trigger);
 memberSubscriptionsList(app, context, value, trigger) =>
     EmbeddedComponentFactory.memberSubscriptionsList(
         app, context, value, trigger);
-menuItemsList(app, context, value, trigger) =>
-    EmbeddedComponentFactory.menuItemsList(app, context, value, trigger);
 
 class EmbeddedComponentFactory {
-/* 
- * bodyComponentsList function to construct a list of BodyComponentModel
- */
-  static Widget bodyComponentsList(AppModel app, BuildContext context,
-      List<BodyComponentModel> values, BodyComponentListChanged trigger) {
-    BodyComponentInMemoryRepository inMemoryRepository =
-        BodyComponentInMemoryRepository(
-      trigger,
-      values,
-    );
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<BodyComponentListBloc>(
-          create: (context) => BodyComponentListBloc(
-            bodyComponentRepository: inMemoryRepository,
-          )..add(LoadBodyComponentList()),
-        )
-      ],
-      child: BodyComponentListWidget(app: app, isEmbedded: true),
-    );
-  }
-
-/* 
- * decorationColorsList function to construct a list of DecorationColorModel
- */
-  static Widget decorationColorsList(AppModel app, BuildContext context,
-      List<DecorationColorModel> values, DecorationColorListChanged trigger) {
-    DecorationColorInMemoryRepository inMemoryRepository =
-        DecorationColorInMemoryRepository(
-      trigger,
-      values,
-    );
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<DecorationColorListBloc>(
-          create: (context) => DecorationColorListBloc(
-            decorationColorRepository: inMemoryRepository,
-          )..add(LoadDecorationColorList()),
-        )
-      ],
-      child: DecorationColorListWidget(app: app, isEmbedded: true),
-    );
-  }
-
 /* 
  * memberMediumsList function to construct a list of MemberMediumModel
  */
@@ -167,27 +110,6 @@ class EmbeddedComponentFactory {
         )
       ],
       child: MemberSubscriptionListWidget(app: app, isEmbedded: true),
-    );
-  }
-
-/* 
- * menuItemsList function to construct a list of MenuItemModel
- */
-  static Widget menuItemsList(AppModel app, BuildContext context,
-      List<MenuItemModel> values, MenuItemListChanged trigger) {
-    MenuItemInMemoryRepository inMemoryRepository = MenuItemInMemoryRepository(
-      trigger,
-      values,
-    );
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<MenuItemListBloc>(
-          create: (context) => MenuItemListBloc(
-            menuItemRepository: inMemoryRepository,
-          )..add(LoadMenuItemList()),
-        )
-      ],
-      child: MenuItemListWidget(app: app, isEmbedded: true),
     );
   }
 }
