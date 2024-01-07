@@ -31,6 +31,9 @@ Eliud main core classes
 
 <!-- dependencies -->
 
+### Direct dependencies
+- [eliud_core_helpers](https://pub.dev/packages/eliud_core_helpers)
+
 ### Dev dependencies
 - [eliud_generator](https://pub.dev/packages/eliud_generator)
 
