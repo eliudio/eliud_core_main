@@ -1,6 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:eliud_core_main/apis/wizard_api/new_app_wizard_info.dart';
 
+import '../../apis/wizard_api/wizard_api.dart';
+
 /*
  * Global registry with new app wizards
  */

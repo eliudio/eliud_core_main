@@ -3,7 +3,7 @@ import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:path/path.dart';
-import 'package:pdfx/pdfx.dart';
+import 'package:pdfx_plugin/pdfx_plugin.dart';
 import '../apis/medium/medium_api.dart';
 import '../model/app_model.dart';
 import 'asset_helper.dart';

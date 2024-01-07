@@ -6,7 +6,7 @@ import 'dart:typed_data';
 import 'package:image/image.dart';
 import 'package:image/image.dart' as imgpackage;
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:pdfx/pdfx.dart';
+import 'package:pdfx_plugin/pdfx_plugin.dart';
 //import 'package:video_thumbnail/video_thumbnail.dart';
 import 'package:get_thumbnail_video/video_thumbnail.dart';
 import 'package:get_thumbnail_video/src/image_format.dart';
