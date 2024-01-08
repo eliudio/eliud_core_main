@@ -162,7 +162,7 @@ packages:
     source: hosted
     version: "1.1.1"
   cloud_firestore:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: cloud_firestore
       sha256: "50e33a5cd62f7ed0e8290802a7e68e090d27738f65256977162c127303ad82ea"
@@ -194,7 +194,7 @@ packages:
     source: hosted
     version: "4.8.0"
   collection:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: collection
       sha256: ee67cb0715911d28db6bf4af1026078bd6f0128b07a5f66fb2ed94ec6783c09a
@@ -218,7 +218,7 @@ packages:
     source: hosted
     version: "0.3.3+8"
   crypto:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: crypto
       sha256: ff625774173754681d66daaf4a448684fb04b78f902da9cb3d308c19cc5e8bab
@@ -268,19 +268,21 @@ packages:
   eliud_core_helpers:
     dependency: "direct main"
     description:
-      path: "../eliud_core_helpers"
-      relative: true
-    source: path
+      name: eliud_core_helpers
+      sha256: "5e6b6befc0378821cd881cdce75cb36e8777de7716a5fb416e9b4c5d1a023aef"
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.0"
   eliud_generator:
     dependency: "direct dev"
     description:
-      path: "../eliud_generator"
-      relative: true
-    source: path
-    version: "1.1.6"
+      name: eliud_generator
+      sha256: "97b13a9d23e29493f1152d7e2863e5388d97f1ed205d589c4336fb3794dce635"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.7"
   equatable:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: equatable
       sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
@@ -623,7 +625,7 @@ packages:
     source: hosted
     version: "0.5.0"
   meta:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: meta
       sha256: a6e590c838b18133bb482a2745ad77c5bb7715fb0451209e1a7567d416678b8e
@@ -655,7 +657,7 @@ packages:
     source: hosted
     version: "2.1.0"
   path:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path
       sha256: "8829d8a55c13fc0e37127c29fedf290c102f4e40ae94ada574091fe0ff96c917"
