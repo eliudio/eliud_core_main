@@ -4,7 +4,7 @@ description: Eliud core main is the main core eliud package. It's a required pac
   for all eliud apps. More info at https://eliud.io
 homepage: https://eliud.io
 repository: https://github.com/eliudio/eliud_core_main
-version: 1.0.1
+version: 1.0.2
 environment:
   sdk: '>=3.2.0 <4.0.0'
   flutter: '>=3.0.0'
