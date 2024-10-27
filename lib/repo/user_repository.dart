@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io' show Platform;
 import 'dart:math';
 
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -40,18 +41,157 @@ class UserRepository {
   }
 
   Future<User?> signInWithGoogle() async {
+    print("signInWithGoogle step a1");
     try {
+      await _googleSignIn.signOut();
+    } catch (t) {
+      // ignore
+    }
+    try {
+      print("signInWithGoogle step a2");
       final googleUser = await _googleSignIn.signIn();
       if (googleUser != null) {
+        print("signInWithGoogle step a2.1");
         final googleAuth = await googleUser.authentication;
+        print("signInWithGoogle step a2.2");
         final AuthCredential credential = GoogleAuthProvider.credential(
           accessToken: googleAuth.accessToken,
           idToken: googleAuth.idToken,
         );
+        print("signInWithGoogle step a2.3");
+        await _firebaseAuth.signInWithCredential(credential);
+        print("signInWithGoogle step a2.4");
+        if (_firebaseAuth.currentUser != null) {
+
+          // MOVE THIS TO SimpleQaComponent
+
+          {
+
+            final validateChampsAnswer = FirebaseFunctions.instance.httpsCallable('validateChampsAnswer');
+            {
+              final result = await validateChampsAnswer.call(
+                  <String, dynamic>
+                  {
+                    'category': 'Frans',
+                    'group': 'Vertalen',
+                    'target': 'Vertalen van enkele simpele zinnetjes',
+                    'ageGroup': '6',
+                    'gender': 'female',
+                    'question': "Wat is de vertaling van 'Ik ben blij' (als man)?",
+                    'expectedAnswer': 'Je suis heureux',
+                    'givenAnswer': 'Je suis heureux'
+                  });
+              final correct = result.data['correct'];
+              final feedback = result.data['feedback'];
+              print("correct: " + correct.toString());
+              print("feedback: " + feedback);
+            }
+            // Generate a challenge question
+            final generateChallengeQuestion = FirebaseFunctions.instance.httpsCallable('generateChallengeQuestion');
+            {
+              final result = await generateChallengeQuestion.call(
+                  <String, dynamic>
+                  {
+                    'category': 'maths',
+                    'group': 'Addition and Subtraction',
+                    'target': 'solve simple problems in a practical context involving addition and subtraction of money of the same unit, including giving change. Question is for UK children, so use £.',
+                    'ageGroup': '6',
+                    'amount': 2,
+                    'choices': 3,
+                  });
+              List results = result.data;
+              for (int i = 0; i < results.length; i++) {
+                final result = results[i];
+                final question = result['question'];
+                final answer = result['correctAnswer'];
+                final timeInSeconds = result['timeInSeconds'];
+                print("question: " + question);
+                print("answer: " + answer);
+                print("timeInSeconds: " + timeInSeconds.toString());
+                print("");
+              }
+            }
+
+            {
+              final result = await generateChallengeQuestion.call(
+                  <String, dynamic>
+                  {
+                    'category': 'Frans',
+                    'group': 'Vertalen',
+                    'target': 'Vertalen van enkele simpele zinnetjes. Als er verwarring zou kunnen zijn ivm het geslacht van de persoon, specifieer dan het geslacht in de vraag',
+                    'ageGroup': '6',
+                    'amount': 10,
+                    'choices': 3,
+                  });
+              List results = result.data;
+              for (int i = 0; i < results.length; i++) {
+                final result = results[i];
+                final question = result['question'];
+                final answer = result['correctAnswer'];
+                final timeInSeconds = result['timeInSeconds'];
+                print("question: " + question);
+                print("answer: " + answer);
+                print("timeInSeconds: " + timeInSeconds.toString());
+                print("");
+              }
+            }
+
+          }
+
+          return _firebaseAuth.currentUser!;
+        }
+        print("signInWithGoogle step a2.5");
+        throw Exception('_firebaseAuth.currentUser is null');
+      } else {
+        throw Exception('User decided not to login');
+      }
+    } catch (t) {
+      throw Exception('Exception during google sign in $t');
+    }
+  }
+
+  Future<User?> signInWithGoogleNew() async {
+    try {
+      print("signInWithGoogle step 1");
+      var googleUser = kIsWeb ? await (_googleSignIn.signInSilently()) : await (_googleSignIn.signIn());
+      print("signInWithGoogle step 2");
+      if (_googleSignIn == null)
+      {
+        print("_googleSignIn is null!!!!!!!!");
+      } else {
+        print("_googleSignIn is not null!!!!!!!!");
+      }
+      if (kIsWeb)
+      {
+        print("kIsWeb is true!!!!!!!!");
+      } else {
+        print("kIsWeb is false!!!!!!!!");
+      }
+      if (googleUser == null)
+      {
+        print("googleUser == null !!!!!!!!");
+      } else {
+        print("googleUser != null!!!!!!!!");
+      }
+      if (kIsWeb && googleUser == null) {
+        print("trying...");
+        googleUser = await _googleSignIn.signIn();
+      }
+      print("signInWithGoogle step 3");
+      if (googleUser != null) {
+        print("signInWithGoogle step a3");
+        final googleAuth = await googleUser.authentication;
+        print("signInWithGoogle step a4");
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+        print("signInWithGoogle step a5");
         await _firebaseAuth.signInWithCredential(credential);
         if (_firebaseAuth.currentUser != null) {
           return _firebaseAuth.currentUser!;
         }
+        print("signInWithGoogle step a6");
         throw Exception('_firebaseAuth.currentUser is null');
       } else {
         throw Exception('User decided not to login');

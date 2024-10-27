@@ -9,7 +9,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:pdfx_plugin/pdfx_plugin.dart';
 //import 'package:video_thumbnail/video_thumbnail.dart';
 import 'package:get_thumbnail_video/video_thumbnail.dart';
-import 'package:get_thumbnail_video/src/image_format.dart';
+import 'package:get_thumbnail_video/src/image_format.dart' as get_image_format;
 
 import 'basename_helper.dart';
 import 'medium_base.dart';
@@ -109,7 +109,7 @@ abstract class MediumData {
 
     var thumbNailData = await VideoThumbnail.thumbnailData(
       video: filePath,
-      imageFormat: ImageFormat.PNG,
+      imageFormat: get_image_format.ImageFormat.PNG,
       maxWidth:
           thumbnailSize, // specify the width of the thumbnail, let the height auto-scaled to keep the source aspect ratio
       quality: 30,

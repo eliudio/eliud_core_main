@@ -56,7 +56,7 @@ class GotoPageEntity extends ActionEntity {
     return {
       'appID': appID,
       'actionType': actionType,
-      'conditions': conditions == null ? null : conditions!.toDocument(),
+      'conditions': conditions?.toDocument(),
       'pageID': pageID
     };
   }
@@ -90,7 +90,7 @@ class OpenDialogEntity extends ActionEntity {
     return {
       'appID': appID,
       'actionType': actionType,
-      'conditions': conditions == null ? null : conditions!.toDocument(),
+      'conditions': conditions?.toDocument(),
       'dialogID': dialogID
     };
   }
@@ -122,7 +122,7 @@ class SwitchAppEntity extends ActionEntity {
     return {
       'appID': appID,
       'actionType': actionType,
-      'conditions': conditions == null ? null : conditions!.toDocument(),
+      'conditions': conditions?.toDocument(),
       'toAppID': toAppID,
     };
   }
@@ -154,7 +154,7 @@ class PopupMenuEntity extends ActionEntity {
     return {
       'actionType': actionType,
       'appID': appID,
-      'conditions': conditions == null ? null : conditions!.toDocument(),
+      'conditions': conditions?.toDocument(),
       'menuDefID': menuDefID
     };
   }
@@ -186,7 +186,7 @@ class InternalActionEntity extends ActionEntity {
     return {
       'actionType': actionType,
       'appID': appID,
-      'conditions': conditions == null ? null : conditions!.toDocument(),
+      'conditions': conditions?.toDocument(),
       'action': action
     };
   }
